@@ -2274,7 +2274,7 @@ __webpack_require__(75)(app);
 
 
 
-var server = app.listen(3000, function() {
+var server = app.listen( process.env.PORT || 3000, function() {
 
     console.log("Listening to port %s", server.address().port);
 
