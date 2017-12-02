@@ -310,7 +310,7 @@ var ListComponent = (function () {
     }
     ListComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.http.post('http://192.168.99.100:3000/equipes', { id: this.guard.GetUser().id }).subscribe(function (response) {
+        this.http.post('/equipes', { id: this.guard.GetUser().id }).subscribe(function (response) {
             _this.equipes = JSON.parse(response['_body']).result;
         }, function (error) {
             console.log(error);
@@ -455,7 +455,7 @@ var CreateUserStoryComponent = (function () {
     };
     CreateUserStoryComponent.prototype.insertUS = function () {
         var _this = this;
-        this.http.post('http://192.168.99.100:3000/backlog/create-us', { projectID: JSON.parse(localStorage.getItem('currentequipe'))['0'].id, numberUS: this.inputNumber, priorityUS: this.inputPriority,
+        this.http.post('/backlog/create-us', { projectID: JSON.parse(localStorage.getItem('currentequipe'))['0'].id, numberUS: this.inputNumber, priorityUS: this.inputPriority,
             difficultyUS: this.inputDifficulty, descriptionUS: this.inputDescription }).subscribe(function (response) {
             if (JSON.parse(response['_body']).result === 'invalid form') {
                 alert('Veuillez remplir le formulaire en entier.');
@@ -538,7 +538,7 @@ var ListUserStoryComponent = (function () {
     ListUserStoryComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.idBacklog = JSON.parse(localStorage.getItem('currentequipe'));
-        this.http.post('http://192.168.99.100:3000/listUserStory', { idBacklog: this.idBacklog[0].id }).subscribe(function (response) {
+        this.http.post('/listUserStory', { idBacklog: this.idBacklog[0].id }).subscribe(function (response) {
             _this.backlog = JSON.parse(response['_body']).result;
         }, function (error) {
             console.log(error);
@@ -554,7 +554,7 @@ var ListUserStoryComponent = (function () {
         }
         else {
             // tslint:disable-next-line:max-line-length
-            this.http.post('http://192.168.99.100:3000/changeprio', { id: this.element.parentElement.children[0].innerText, description: this.element.parentElement.children[2].innerText, prio: this.prio }).subscribe(function (response) {
+            this.http.post('/changeprio', { id: this.element.parentElement.children[0].innerText, description: this.element.parentElement.children[2].innerText, prio: this.prio }).subscribe(function (response) {
                 if (JSON.parse(response['_body']).result) {
                     console.log('Prio changé');
                 }
@@ -649,7 +649,7 @@ var CreateSprintComponent = (function () {
         });
     }
     CreateSprintComponent.prototype.createSprint = function () {
-        this.http.post('http://192.168.99.100:3000/createsprint', {
+        this.http.post('/createsprint', {
             numberSprint: this.numberSprint,
             startDate: this.startDate,
             endDate: this.endDate,
@@ -733,7 +733,7 @@ var SprintComponent = (function () {
     }
     SprintComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.http.post('http://192.168.99.100:3000/sprints', { idprojet: JSON.parse(localStorage.getItem('currentequipe'))['0'].id }).subscribe(function (response) {
+        this.http.post('/sprints', { idprojet: JSON.parse(localStorage.getItem('currentequipe'))['0'].id }).subscribe(function (response) {
             _this.proporties = JSON.parse(response['_body']).result;
         }, function (error) {
             console.log(error);
@@ -964,7 +964,7 @@ var InvitationComponent = (function () {
         this.projectName = '';
     }
     InvitationComponent.prototype.InvitUser = function () {
-        this.http.post('http://192.168.99.100:3000/invite', { invitEmail: this.invitEmail, projectName: this.projectName }).subscribe(function (response) {
+        this.http.post('/invite', { invitEmail: this.invitEmail, projectName: this.projectName }).subscribe(function (response) {
             if (JSON.parse(response['_body']).result) {
                 alert('Insertion avec succes');
             }
@@ -1052,7 +1052,7 @@ var LoginComponent = (function () {
             alert("Veuillez Remplir le formulaire");
         }
         else {
-            this.http.post('http://192.168.99.100:3000/user', { email: this.email, password: this.password }).subscribe(function (response) {
+            this.http.post('/user', { email: this.email, password: this.password }).subscribe(function (response) {
                 if (JSON.parse(response['_body']).result) {
                     _this.guard.SetUser(JSON.parse(response['_body']).result);
                     _this.guard.LogIn();
@@ -1078,7 +1078,7 @@ var LoginComponent = (function () {
             alert("Veuillez Remplir le formulaire");
         }
         else {
-            this.http.post('http://192.168.99.100:3000/addUser', { email: this.email, password: this.password }).subscribe(function (response) {
+            this.http.post('/addUser', { email: this.email, password: this.password }).subscribe(function (response) {
                 if (JSON.parse(response['_body']).result) {
                     alert("Vous  êtes bien inscrit veuillez vous connecter");
                 }
@@ -1159,7 +1159,7 @@ var ProjectComponent = (function () {
     };
     ProjectComponent.prototype.CreateProject = function (project) {
         // tslint:disable-next-line:max-line-length
-        this.http.post('http://192.168.99.100:3000/createproject', { project: project.value, user: this.guard.GetUser()['id'] }).subscribe(function (response) {
+        this.http.post('/createproject', { project: project.value, user: this.guard.GetUser()['id'] }).subscribe(function (response) {
             if (JSON.parse(response['_body']).result) {
                 alert('Projet créer avec succes');
             }
