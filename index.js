@@ -2259,11 +2259,6 @@ app.use(cors({
 }));
 
 
-app.use(express.static(path.resolve('./Public')));
-
-app.get('*', (req, res) => {
-    res.sendFile(path.resolve('./Public/index.html'));
-});
 
 var router = express.Router();
 
